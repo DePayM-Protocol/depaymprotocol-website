@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - De-PayM</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background: linear-gradient(135deg, #2EC1EA, #443D3D); color: #333; }
+    form { max-width: 400px; margin: auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    input { width: 100%; padding: 0.75rem; margin: 0.5rem 0 1rem; border-radius: 8px; border: 1px solid #ccc; }
+    button { background: #0077cc; color: white; padding: 0.75rem; border: none; border-radius: 8px; cursor: pointer; width: 100%; }
+    button:hover { background: #005fa3; }
+    .info { text-align: center; margin-top: 2rem; }
+    .info a { color: #ABFAFB; text-decoration: none; font-weight: 200; font-size: 24px; }
+    .info h4 { color: #fff;}
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Register to De-PayM</h2>
+  <form id="register-form">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+    <input type="text" id="referrer" placeholder="Referral Wallet Address (auto-filled)" readonly />
+    <button type="submit">Register</button>
+  </form>
+
+  <div class="info">
+    <p ><h4>have the app? </h4><a href="https://your-dapp.com/download">Download De-PayM</a></p>
+  </div>
+
+  <script>
+    // Autofill referrer address from query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    if (ref) {
+      document.getElementById('referrer').value = ref;
+    }
+
+    // Handle registration
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const referrer = document.getElementById('referrer').value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      try {
+        const res = await fetch('https://your-api.com/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, username, password, referrer })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
+
+        alert('Registration successful! Now download the De-PayM app.');
+        window.location.href = 'https://your-dapp.com/download';
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

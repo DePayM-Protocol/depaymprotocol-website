@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>De-PayM | Contact</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #1a4f79;
+      --secondary: #1a202c;
+      --accent: #63b3ed;
+      --light: #f8f9fa;
+      --text: #2d3748;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-reverse: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+    }
+    
+    nav a.active {
+      color: white;
+      background: var(--gradient);
+      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* Banner Styles */
+    .page-banner {
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(rgba(11, 15, 28, 0.8), rgba(11, 15, 28, 0.9)), 
+                  url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3') no-repeat center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(99, 179, 237, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+      pointer-events: none;
+    }
+    
+    .page-banner h2 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(99, 179, 237, 0.3);
+    }
+    
+    .page-banner p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #cbd5e1;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    
+    @media (max-width: 900px) {
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .contact-info {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .contact-info::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .contact-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: white;
+    }
+    
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .contact-method {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(99, 179, 237, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    
+    .contact-details h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    
+    .contact-details p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .contact-details a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .contact-details a:hover {
+      text-decoration: underline;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-link {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(99, 179, 237, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    /* Contact Form */
+    .contact-form {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .contact-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .contact-form h3 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: white;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      border: 1px solid rgba(99, 179, 237, 0.3);
+      background: rgba(15, 23, 42, 0.5);
+      color: white;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      font-size: 1.1rem;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: var(--gradient-reverse);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+    }
+    
+    .btn:hover::before {
+      width: 100%;
+    }
+    
+    /* Map Section */
+    .map-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+    
+    .map-container {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+      height: 400px;
+    }
+    
+    .map-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a365d, #2b6cb0);
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .map-placeholder i {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      color: rgba(255,255,255,0.7);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+    
+    .faq-section h3 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .faq-item {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .faq-item h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .faq-item h4 i {
+      font-size: 1.2rem;
+    }
+    
+    .faq-item p {
+      color: #cbd5e1;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    
+    /* Footer Styles */
+    footer {
+      background: rgba(15, 23, 42, 0.9);
+      text-align: center;
+      padding: 2.5rem;
+      border-top: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    footer p {
+      color: #94a3b8;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(99, 179, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .page-banner h2 {
+        font-size: 2.8rem;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .page-banner {
+        min-height: 250px;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.2rem;
+      }
+      
+      .page-banner p {
+        font-size: 1.1rem;
+      }
+      
+      .contact-section {
+        padding: 2rem 1rem;
+      }
+      
+      .contact-info, .contact-form {
+        padding: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">DP</div>
+      <div class="logo-text">De-PayM</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="policies.html">Policies</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-banner contact-banner">
+    <h2>Get in Touch</h2>
+    <p>Need support or interested in partnering with us? Let's connect.</p>
+    <div style="margin-top: 2rem;">
+      <div class="btn pulse floating" style="display: inline-block; background: var(--gradient); color: white; padding: 0.8rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 600;">
+        <i class="fas fa-headset"></i> Contact Support
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-info">
+      <h3>Contact Information</h3>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Email Us</h4>
+            <p>Have questions? Our team is ready to help.</p>
+            <a href="mailto:support@depaym.com">support@depaym.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <div class="contact-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Community Support</h4>
+            <p>Get help from our active community of users and experts.</p>
+            <a href="community.html">Visit Community Forums</a>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <div class="contact-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Partnership Inquiries</h4>
+            <p>Interested in partnering with De-PayM? Let's talk.</p>
+            <a href="mailto:partners@depaym.com">partners@depaym.com</a>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-details">
+            <h4>Our Location</h4>
+            <p>Blockchain Innovation Hub<br>Web3 Avenue, Crypto Valley<br>Switzerland</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="https://x.com/De_PayM" class="social-link" target="_blank">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://t.me/DePayMProtocol" class="social-link" target="_blank">
+          <i class="fab fa-telegram"></i>
+        </a>
+        <a href="https://discord.gg/QePaBKzM" class="social-link" target="_blank">
+          <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://github.com/DePayM" class="social-link" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Your name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" required>
+            <option value="" disabled selected>Select a subject</option>
+            <option value="support">Technical Support</option>
+            <option value="partnership">Partnership Inquiry</option>
+            <option value="press">Press & Media</option>
+            <option value="security">Security Issue</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" placeholder="How can we help you?" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+  
+  <section class="map-section">
+    <div class="map-container">
+      <div class="map-placeholder">
+        <i class="fas fa-map-marked-alt"></i>
+        <h3>Our Global Headquarters</h3>
+        <p>Blockchain Innovation Hub, Web3 Avenue, Crypto Valley, Switzerland</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Interactive map would be displayed here</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="faq-section">
+    <h3>Frequently Asked Questions</h3>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4><i class="fas fa-question-circle"></i> How do I get technical support?</h4>
+        <p>For technical issues, please contact our support team at support@depaym.com or visit our community forums for peer-to-peer assistance.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4><i class="fas fa-user-clock"></i> What's your response time?</h4>
+        <p>We aim to respond to all inquiries within 24 business hours. Urgent security issues receive priority attention.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4><i class="fas fa-handshake"></i> How can I partner with De-PayM?</h4>
+        <p>We welcome partnerships! Please email partners@depaym.com with details about your organization and proposed collaboration.</p>
+      </div>
+      
+      <div class="faq-item">
+        <h4><i class="fas fa-bug"></i> Where do I report security vulnerabilities?</h4>
+        <p>Security researchers can report vulnerabilities through our bug bounty program. Visit our Security page for details.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Form submission handling
+      const contactForm = document.getElementById('contactForm');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Simple validation
+        if (!name || !email || !subject || !message) {
+          alert('Please fill in all fields');
+          return;
+        }
+        
+        // In a real application, you would send this data to a server
+        // For this demo, we'll just show a success message
+        
+        // Show success message
+        const btn = contactForm.querySelector('button');
+        const originalBtnText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+        btn.style.backgroundColor = '#38a169';
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Reset button after 3 seconds
+        setTimeout(() => {
+          btn.innerHTML = originalBtnText;
+          btn.style.backgroundColor = '';
+        }, 3000);
+      });
+      
+      // Animation for contact methods
+      const contactMethods = document.querySelectorAll('.contact-method');
+      
+      contactMethods.forEach((method, index) => {
+        method.style.opacity = '0';
+        method.style.transform = 'translateX(-20px)';
+        method.style.transition = `opacity 0.5s ease ${index * 0.2}s, transform 0.5s ease ${index * 0.2}s`;
+        
+        setTimeout(() => {
+          method.style.opacity = '1';
+          method.style.transform = 'translateX(0)';
+        }, 500 + (index * 200));
+      });
+    });
+  </script>
+</body>
+</html>

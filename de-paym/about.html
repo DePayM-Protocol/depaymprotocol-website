@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>De-PayM | About</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #1a4f79;
+      --secondary: #1a202c;
+      --accent: #63b3ed;
+      --light: #f8f9fa;
+      --text: #2d3748;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-reverse: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+    }
+    
+    nav a.active {
+      color: white;
+      background: var(--gradient);
+      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    
+    /* Banner Styles */
+    .page-banner {
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(rgba(11, 15, 28, 0.8), rgba(11, 15, 28, 0.9)), 
+                  url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3') no-repeat center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(99, 179, 237, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+      pointer-events: none;
+    }
+    
+    .page-banner h2 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(99, 179, 237, 0.3);
+    }
+    
+    .page-banner p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #cbd5e1;
+    }
+    
+    /* Content Section */
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+    
+    .about-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .about-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+      border-color: rgba(99, 179, 237, 0.3);
+    }
+    
+    .about-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .about-card h3 i {
+      background: var(--gradient);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .about-card p {
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    .mission-section {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 3rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .mission-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .mission-section h3 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .mission-section p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+    
+    /* Values Section */
+    .values-section {
+      margin: 5rem 0;
+    }
+    
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .value-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+      text-align: center;
+    }
+    
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .value-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+    }
+    
+    .value-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+    
+    .value-card h4 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .value-card p {
+      color: #cbd5e1;
+      font-size: 1rem;
+    }
+    
+    /* Timeline Section */
+    .timeline-section {
+      margin: 5rem 0;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: var(--gradient);
+    }
+    
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      padding-right: 3rem;
+      text-align: right;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      padding-left: 3rem;
+    }
+    
+    .timeline-content {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .timeline-item:nth-child(odd)::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(99, 179, 237, 0.5);
+    }
+    
+    .timeline-item:nth-child(even)::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -10px;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(99, 179, 237, 0.5);
+    }
+    
+    .timeline-content h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    
+    .timeline-content .date {
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    /* Footer Styles */
+    footer {
+      background: rgba(15, 23, 42, 0.9);
+      text-align: center;
+      padding: 2.5rem;
+      border-top: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    footer p {
+      color: #94a3b8;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(99, 179, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.8rem;
+      }
+      
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 0;
+        text-align: left;
+      }
+      
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        left: 0;
+        padding-right: 0;
+        padding-left: 70px;
+        text-align: left;
+      }
+      
+      .timeline-item:nth-child(odd)::before,
+      .timeline-item:nth-child(even)::before {
+        left: 20px;
+        right: auto;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .page-banner {
+        min-height: 300px;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.2rem;
+      }
+      
+      .page-banner p {
+        font-size: 1.1rem;
+      }
+      
+      .content-section {
+        padding: 2rem 1rem;
+      }
+      
+      .about-card {
+        padding: 1.8rem;
+      }
+      
+      .mission-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">DP</div>
+      <div class="logo-text">De-PayM</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="policies.html">Policies</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-banner about-banner">
+    <h2>Our Vision</h2>
+    <p>Empowering global finance through accessible blockchain technology.</p>
+    <div style="margin-top: 2rem;">
+      <div class="btn pulse floating" style="display: inline-block; background: var(--gradient); color: white; padding: 0.8rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 600;">
+        <i class="fas fa-globe-americas"></i> Join the Financial Revolution
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="about-grid">
+      <div class="about-card">
+        <h3><i class="fas fa-users"></i> Who We Are</h3>
+        <p>
+          De-PayM is a decentralized payment ecosystem by DePayMProtocol dedicated to simplifying cryptocurrency usage. 
+          Founded by blockchain enthusiasts, our mission is to remove barriers like high gas fees by using Ethereum L2 chains 
+          and complicated user interfaces.
+        </p>
+        <p>
+          Our team of developers, financial experts, and blockchain specialists are committed to creating solutions that 
+          bridge the gap between traditional finance and decentralized technologies. We believe that financial empowerment 
+          should be accessible to everyone, regardless of technical expertise or geographical location.
+        </p>
+      </div>
+      
+      <div class="about-card">
+        <h3><i class="fas fa-lightbulb"></i> Our Innovations</h3>
+        <p>
+          We're revolutionizing blockchain payments through:
+        </p>
+        <ul style="list-style: none; padding-left: 0; margin: 1.5rem 0;">
+          <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem; border-bottom: 1px solid rgba(99, 179, 237, 0.1);">
+            <i class="fas fa-bolt" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+            <strong>Gas Fee Elimination</strong>: Leveraging Layer 2 solutions to reduce transaction costs to near-zero
+          </li>
+          <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem; border-bottom: 1px solid rgba(99, 179, 237, 0.1);">
+            <i class="fas fa-sync-alt" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+            <strong>Real-Time Conversion</strong>: Instant local currency to stablecoin conversions
+          </li>
+          <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem;">
+            <i class="fas fa-shield-alt" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+            <strong>Non-Custodial Security</strong>: Users maintain full control of their assets
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="mission-section">
+      <h3>Our Mission</h3>
+      <p>
+        To create a borderless financial ecosystem where anyone can send, receive, and manage digital assets as easily as sending a text message. 
+        We're building the infrastructure for a truly inclusive global economy.
+      </p>
+    </div>
+    
+    <div class="values-section">
+      <h3 style="font-size: 2.2rem; text-align: center; margin-bottom: 1.5rem; background: linear-gradient(to right, white, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Our Core Values
+      </h3>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-universal-access"></i>
+          </div>
+          <h4>Accessibility</h4>
+          <p>Making blockchain technology usable for everyone, regardless of technical expertise.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h4>Security</h4>
+          <p>Prioritizing user security through non-custodial solutions and rigorous protocols.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h4>Affordability</h4>
+          <p>Eliminating financial barriers with near-zero transaction fees.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h4>Global Inclusion</h4>
+          <p>Building solutions that work for everyone, everywhere in the world.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="about-card">
+      <h3><i class="fas fa-code-branch"></i> Contributions to Blockchain Technology</h3>
+      <p>
+        We believe in an inclusive financial future. By introducing gas abstraction, multi-chain stablecoin support, and local currency conversions, 
+        we push the boundaries of what is possible in DeFi. Our open-source approach also fosters community-driven improvements.
+      </p>
+      <p>
+        Our key technological contributions include:
+      </p>
+      <ul style="list-style: none; padding-left: 0; margin: 1.5rem 0;">
+        <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem; border-bottom: 1px solid rgba(99, 179, 237, 0.1);">
+          <i class="fas fa-cube" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+          <strong>Gas Abstraction Layer</strong>: Enabling near-zero cost transactions on Ethereum via L2 solutions
+        </li>
+        <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem; border-bottom: 1px solid rgba(99, 179, 237, 0.1);">
+          <i class="fas fa-wallet" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+          <strong>Unified Wallet Experience</strong>: Simplifying multi-chain asset management
+        </li>
+        <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem; border-bottom: 1px solid rgba(99, 179, 237, 0.1);">
+          <i class="fas fa-exchange-alt" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+          <strong>Real-Time Fiat Gateways</strong>: Seamless local currency to stablecoin conversion
+        </li>
+        <li style="padding: 0.8rem 0; position: relative; padding-left: 2.5rem;">
+          <i class="fas fa-people-arrows" style="position: absolute; left: 0; top: 0.8rem; color: var(--accent);"></i>
+          <strong>Decentralized On/Off Ramps</strong>: Peer-to-peer fiat conversion networks
+        </li>
+      </ul>
+    </div>
+    
+    <div class="timeline-section">
+      <h3 style="font-size: 2.2rem; text-align: center; margin-bottom: 2rem; background: linear-gradient(to right, white, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Our Journey
+      </h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="date">Q4 2024</span>
+            <h4>Concept Development</h4>
+            <p>Initial research and concept design for De-PayM ecosystem</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="date">Q1 2025</span>
+            <h4>Core Protocol Development</h4>
+            <p>Building the foundational smart contracts and infrastructure</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="date">Q2 2025</span>
+            <h4>Testnet Launch</h4>
+            <p>First version released for community testing and feedback</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="date">Q3 2025</span>
+            <h4>Mobile App Beta</h4>
+            <p>Initial release of De-PayM mobile application</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="date">Q4 2025</span>
+            <h4>Mainnet Launch</h4>
+            <p>Official launch of De-PayM on multiple blockchain networks</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <span class="date">Future</span>
+            <h4>Global Expansion</h4>
+            <p>Adding support for more currencies, chains, and financial services</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+  </footer>
+
+  <script>
+    // Animation for timeline items
+    document.addEventListener('DOMContentLoaded', function() {
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      timelineItems.forEach(item => {
+        item.style.opacity = 0;
+        if (item.classList.contains('timeline-item:nth-child(odd)')) {
+          item.style.transform = 'translateX(-30px)';
+        } else {
+          item.style.transform = 'translateX(30px)';
+        }
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(item);
+      });
+      
+      // Animation for value cards
+      const valueCards = document.querySelectorAll('.value-card');
+      
+      valueCards.forEach((card, index) => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

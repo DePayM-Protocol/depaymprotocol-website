@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DePayM Protocol | Powering the Future of Decentralized Payments</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #1a365d;
+      --primary-dark: #0d243f;
+      --accent: #2b6cb0;
+      --accent-light: #63b3ed;
+      --light: #f8f9fa;
+      --dark: #1a202c;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-reverse: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f4f8;
+      color: #2d3748;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: white;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .logo-text span {
+      color: var(--accent);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem;
+      position: relative;
+      transition: var(--transition);
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      background: var(--gradient);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3') no-repeat center/cover;
+      opacity: 0.1;
+    }
+    
+    .hero-content {
+      max-width: 650px;
+      z-index: 2;
+      color: white;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: var(--accent-light);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn:hover::before {
+      width: 100%;
+    }
+    
+    .btn-primary {
+      background: var(--accent-light);
+      color: white;
+      margin-right: 1rem;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .hero-image {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45%;
+      max-width: 600px;
+      z-index: 1;
+    }
+    
+    /* Ecosystem Section */
+    .ecosystem {
+      padding: 6rem 5%;
+      background: white;
+      position: relative;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      color: var(--dark);
+    }
+    
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .ecosystem-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(99, 179, 237, 0.1);
+      text-align: center;
+    }
+    
+    .ecosystem-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+    }
+    
+    .ecosystem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .ecosystem-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .ecosystem-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .ecosystem-card p {
+      color: var(--dark);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .app-card {
+      position: relative;
+      overflow: visible;
+    }
+    
+    .app-card::after {
+      content: 'VISIT NOW';
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      animation: pulse 2s infinite;
+    }
+    
+    /* Governance Section */
+    .governance {
+      padding: 6rem 5%;
+      background: var(--primary-dark);
+      color: white;
+      position: relative;
+    }
+    
+    .governance-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    
+    .governance-text {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .governance-image {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .governance h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+    
+    .governance p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    
+    .features-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    
+    .features-list li {
+      padding: 0.8rem 0;
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    
+    .features-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0.8rem;
+      color: var(--accent-light);
+    }
+    
+    /* CTA Section */
+    .cta {
+      padding: 6rem 5%;
+      background: white;
+      text-align: center;
+    }
+    
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--gradient);
+      border-radius: 20px;
+      padding: 4rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3') no-repeat center/cover;
+      opacity: 0.1;
+    }
+    
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .cta p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: white;
+      padding: 4rem 5% 2rem;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+    
+    .footer-col h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-light);
+    }
+    
+    .footer-col ul {
+      list-style: none;
+    }
+    
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-col a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-col a:hover {
+      color: var(--accent-light);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(43, 108, 176, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(43, 108, 176, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(43, 108, 176, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      
+      .hero-image {
+        width: 40%;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+      
+      .hero-content {
+        margin: 0 auto 3rem;
+      }
+      
+      .hero p {
+        margin: 0 auto 2rem;
+      }
+      
+      .hero-image {
+        position: relative;
+        width: 80%;
+        max-width: 500px;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 0 auto;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .btn {
+        display: block;
+        margin: 1rem auto;
+        width: 80%;
+        max-width: 300px;
+      }
+      
+      .ecosystem-card {
+        padding: 1.8rem;
+      }
+      /* <div class="footer-col">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Technical Whitepaper</a></li>
+          <li><a href="#">API Documentation</a></li>
+          <li><a href="#">Security Audits</a></li>
+          <li><a href="#">GitHub Repository</a></li>
+        </ul>
+      </div> */
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">DP</div>
+      <div class="logo-text">DePayM <span>Protocol</span></div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#ecosystem">Ecosystem</a></li>
+        <li><a href="#governance">Governance</a></li>
+        <li><a href="#technology">Technology</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Powering the Future of Decentralized Payments</h1>
+      <p>DePayM Protocol is the foundational infrastructure enabling secure, efficient, and inclusive financial systems across the globe.</p>
+      <div>
+        <a href="#ecosystem" class="btn btn-primary">Explore Our Ecosystem</a>
+        <a href="https://app.depaymprotocol.com" class="btn btn-secondary">Know About De-PayM App</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <!-- Blockchain nodes animation will be generated by JS -->
+      <div class="blockchain-animation" id="blockchainAnimation"></div>
+    </div>
+  </section>
+
+  <!-- Ecosystem Section -->
+  <section class="ecosystem" id="ecosystem">
+    <h2 class="section-title">The DePayM Ecosystem</h2>
+    <p class="section-subtitle">We build the infrastructure that powers innovative financial solutions for individuals and businesses worldwide.</p>
+    
+    <div class="ecosystem-grid">
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-layer-group"></i>
+        </div>
+        <h3>Protocol Infrastructure</h3>
+        <p>The core technology stack that powers all De-PayM systems, including smart contracts, APIs, and security frameworks.</p>
+      </div>
+      
+      <div class="ecosystem-card app-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>De-PayM Mobile App</h3>
+        <p>Our flagship consumer application enabling peer-to-peer payments, currency conversion, and financial services.</p>
+        <a href="https://app.depaymprotocol.com" class="btn btn-primary">Visit App Website</a>
+      </div>
+      
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-wallet"></i>
+        </div>
+        <h3>Wallet Solutions</h3>
+        <p>Secure non-custodial wallet technology integrated across all DePayM products and services.</p>
+      </div>
+      
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <h3>Developer Platform</h3>
+        <p>Tools, SDKs, and documentation for developers to build on the DePayM Protocol.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governance Section -->
+  <section class="governance" id="governance">
+    <div class="governance-content">
+      <div class="governance-text">
+        <h2>Decentralized Governance</h2>
+        <p>DePayM Protocol is governed by a decentralized community of stakeholders, ensuring transparent decision-making and alignment with our core mission.</p>
+        
+        <ul class="features-list">
+          <li>$DPAYM token holders participate in key protocol decisions</li>
+          <li>Transparent proposal and voting system</li>
+          <li>Gradual transition to full community governance</li>
+          <li>Security council for emergency protocol changes</li>
+          <li>Continuous improvement through community feedback</li>
+        </ul>
+        
+        <a href="#" class="btn btn-primary">Learn About Governance</a>
+      </div>
+      
+      <div class="governance-image">
+        <div style="text-align: center; padding: 2rem;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">
+            <i class="fas fa-vote-yea"></i>
+          </div>
+          <h3>Community-Driven Development</h3>
+          <p>Shape the future of decentralized payments</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Section -->
+  <section class="ecosystem" id="technology">
+    <h2 class="section-title">Core Technology</h2>
+    <p class="section-subtitle">Advanced infrastructure powering the DePayM ecosystem</p>
+    
+    <div class="ecosystem-grid">
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Security First</h3>
+        <p>Enterprise-grade security protocols with regular audits and bug bounty programs.</p>
+      </div>
+      
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <h3>High Performance</h3>
+        <p>Scalable architecture capable of handling millions of transactions daily.</p>
+      </div>
+      
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-link"></i>
+        </div>
+        <h3>Multi-Chain</h3>
+        <p>Support for multiple blockchain networks including Base, BSC, and more.</p>
+      </div>
+      
+      <div class="ecosystem-card">
+        <div class="ecosystem-icon">
+          <i class="fas fa-sync-alt"></i>
+        </div>
+        <h3>Continuous Innovation</h3>
+        <p>Ongoing R&D to stay at the forefront of decentralized payment technology.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="contact">
+    <div class="cta-container">
+      <h2>Ready to Experience the Future?</h2>
+      <p>Explore our consumer-facing application built on the DePayM Protocol infrastructure.</p>
+      <a href="https://depaym.com" class="btn btn-primary pulse floating">
+        <i class="fas fa-external-link-alt"></i> Visit De-PayM App
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>DePayM Protocol</h3>
+        <p>The foundational infrastructure for decentralized payment systems, powering the future of global finance.</p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Ecosystem</h3>
+        <ul>
+          <li><a href="#">Protocol Documentation</a></li>
+          <li><a href="https://depaym.com">De-PayM Mobile App</a></li>
+          <li><a href="#">Developer Portal</a></li>
+          <li><a href="#">Governance Forum</a></li>
+        </ul>
+      </div>
+      
+      
+      
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press Kit</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>© 2025 DePayM Protocol. All rights reserved. | Building the infrastructure for decentralized financial systems.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Create blockchain animation for hero section
+    const blockchainAnimation = document.getElementById('blockchainAnimation');
+    
+    for (let i = 0; i < 20; i++) {
+      // Create node
+      const node = document.createElement('div');
+      node.classList.add('chain-node');
+      node.style.position = 'absolute';
+      
+      // Random position
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      node.style.left = `${left}%`;
+      node.style.top = `${top}%`;
+      
+      // Random size
+      const size = 5 + Math.random() * 10;
+      node.style.width = `${size}px`;
+      node.style.height = `${size}px`;
+      
+      // Random animation
+      node.style.animation = `float ${6 + Math.random() * 4}s ease-in-out infinite`;
+      node.style.animationDelay = `${Math.random() * 5}s`;
+      
+      blockchainAnimation.appendChild(node);
+    }
+    
+    // Animate elements when they come into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.ecosystem-card').forEach(card => {
+      card.style.opacity = 0;
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>

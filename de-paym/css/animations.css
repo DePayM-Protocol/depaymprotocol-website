@@ -1,0 +1,12 @@
+/* de-paym-website/css/animations.css */
+
+/* Simple hover effect for hero text */
+.futuristic-text {
+  position: relative;
+  transition: color 0.3s;
+}
+
+.futuristic-text:hover {
+  color: #45a29e;
+  cursor: pointer;
+}

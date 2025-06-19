@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>De-PayM | Security</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #1a4f79;
+      --secondary: #1a202c;
+      --accent: #63b3ed;
+      --light: #f8f9fa;
+      --text: #2d3748;
+      --warning: #fefcbf;
+      --warning-border: #f6e05e;
+      --success: #c6f6d5;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo img {
+      height: 50px;
+      filter: drop-shadow(0 0 5px rgba(99, 179, 237, 0.5));
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(to right, var(--accent), #4fd1c5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+    }
+    
+    nav a.active {
+      color: white;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    
+    /* Banner Styles */
+    .page-banner {
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(rgba(11, 15, 28, 0.8), rgba(11, 15, 28, 0.9)), 
+                  url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3') no-repeat center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(99, 179, 237, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+      pointer-events: none;
+    }
+    
+    .page-banner h2 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(99, 179, 237, 0.3);
+    }
+    
+    .page-banner p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #cbd5e1;
+    }
+    
+    /* Content Section */
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    
+    .security-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .security-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .security-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+      border-color: rgba(99, 179, 237, 0.3);
+    }
+    
+    .security-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .security-card h3 i {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .security-card p {
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.1rem;
+    }
+    
+    .features-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    
+    .features-list li {
+      padding: 0.8rem 0;
+      position: relative;
+      padding-left: 2.5rem;
+      border-bottom: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .features-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .features-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 0.8rem;
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    
+    .audit-logos {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .audit-logo {
+      width: 100px;
+      height: 50px;
+      background: rgba(99, 179, 237, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent);
+      border: 1px solid rgba(99, 179, 237, 0.2);
+    }
+    
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+    }
+    
+    /* Footer Styles */
+    footer {
+      background: rgba(15, 23, 42, 0.9);
+      text-align: center;
+      padding: 2.5rem;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    footer p {
+      color: #94a3b8;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(99, 179, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .header {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      nav a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      
+      .page-banner {
+        min-height: 300px;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.2rem;
+      }
+      
+      .page-banner p {
+        font-size: 1.1rem;
+      }
+      
+      .security-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .security-card {
+        padding: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <!-- Placeholder for logo -->
+      <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="20" fill="none" stroke="#63b3ed" stroke-width="3"/>
+        <path d="M15 25 L25 15 L35 25 L25 35 Z" fill="none" stroke="#63b3ed" stroke-width="2"/>
+        <circle cx="25" cy="25" r="5" fill="#63b3ed"/>
+      </svg>
+      <h1>De-PayM</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="policies.html" class="active">Policies</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="security.html" class="active">Security</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-banner security-banner">
+    <h2>Security at De-PayM</h2>
+    <p>Protecting your assets is our top priority with enterprise-grade security measures</p>
+    <div style="margin-top: 2rem;">
+      <div class="btn pulse floating">
+        <i class="fas fa-shield-alt"></i> View Security Reports
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="security-grid">
+      <div class="security-card">
+        <h3><i class="fas fa-file-contract"></i> Smart Contract Audits</h3>
+        <p>All De-PayM contracts undergo rigorous audits by reputable firms. We openly publish audit reports for complete transparency.</p>
+        
+        <ul class="features-list">
+          <li>Multi-phase audit process before deployment</li>
+          <li>Continuous monitoring for vulnerabilities</li>
+          <li>Automated testing with 98%+ coverage</li>
+          <li>Formal verification of critical components</li>
+          <li>Third-party audits every 6 months</li>
+        </ul>
+        
+        <p>Our audit partners:</p>
+        <div class="audit-logos">
+          <div class="audit-logo">ChainSafe</div>
+          <div class="audit-logo">CertiK</div>
+          <div class="audit-logo">OpenZeppelin</div>
+          <div class="audit-logo">Quantstamp</div>
+        </div>
+        
+        <a href="#" class="btn"><i class="fas fa-download"></i> Download Audit Reports</a>
+      </div>
+      
+      <div class="security-card">
+        <h3><i class="fas fa-lock"></i> Encryption & Secure Storage</h3>
+        <p>We use industry-standard encryption to protect user data. Private keys remain with the user's wallet, never on our servers.</p>
+        
+        <ul class="features-list">
+          <li>End-to-end AES-256 encryption</li>
+          <li>Zero-knowledge proof architecture</li>
+          <li>Hardware security module (HSM) integration</li>
+          <li>Biometric authentication support</li>
+          <li>Distributed storage architecture</li>
+          <li>Regular penetration testing</li>
+        </ul>
+        
+        <p>All sensitive operations require multi-factor authentication and passphrase confirmation.</p>
+        
+        <a href="#" class="btn"><i class="fas fa-shield-virus"></i> Learn About Our Security</a>
+      </div>
+      
+      <div class="security-card">
+        <h3><i class="fas fa-bug"></i> Bug Bounty Program</h3>
+        <p>We value community feedback. Report vulnerabilities to earn rewards and help strengthen our platform.</p>
+        
+        <ul class="features-list">
+          <li>Rewards up to $100,000 for critical vulnerabilities</li>
+          <li>24/7 security response team</li>
+          <li>Responsible disclosure process</li>
+          <li>Whitehat leaderboard and recognition</li>
+          <li>Dedicated security portal</li>
+        </ul>
+        
+        <p>Our program covers all De-PayM systems including web, mobile, and smart contracts.</p>
+        
+        <div style="background: rgba(99, 179, 237, 0.1); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 1rem;">Reward Tiers:</h4>
+          <div style="display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+            <div style="text-align: center;">
+              <div style="font-size: 1.8rem; font-weight: bold; color: var(--accent);">$100-$5,00</div>
+              <div>Low Severity</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.8rem; font-weight: bold; color: #fbbf24;">$5,00-$25,00</div>
+              <div>Medium Severity</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.8rem; font-weight: bold; color: #ef4444;">$25,00-$100,00</div>
+              <div>Critical Severity</div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="#" class="btn"><i class="fas fa-bug"></i> Report a Vulnerability</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" style="background: rgba(30, 41, 59, 0.5); border-radius: 20px; margin: 0 auto 3rem; max-width: 1200px; padding: 3rem;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <h3 style="font-size: 2.2rem; margin-bottom: 1.5rem; color: white;">Additional Security Measures</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+        <div>
+          <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">Multi-Party Computation</h4>
+          <p>Advanced cryptographic techniques to secure private keys across multiple parties</p>
+        </div>
+        <div>
+          <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">Decentralized Architecture</h4>
+          <p>No single point of failure with distributed infrastructure</p>
+        </div>
+        <div>
+          <div style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;">
+            <i class="fas fa-history"></i>
+          </div>
+          <h4 style="font-size: 1.5rem; margin-bottom: 1rem;">Real-Time Monitoring</h4>
+          <p>24/7 surveillance for suspicious activities with AI-powered threat detection</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>De-PayM | Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #1a4f79;
+      --secondary: #1a202c;
+      --accent: #63b3ed;
+      --light: #f8f9fa;
+      --text: #2d3748;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-reverse: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo img {
+      height: 50px;
+      filter: drop-shadow(0 0 5px rgba(99, 179, 237, 0.5));
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+    }
+    
+    nav a.active {
+      color: white;
+      background: var(--gradient);
+      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* Banner Styles */
+    .page-banner {
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(rgba(11, 15, 28, 0.8), rgba(11, 15, 28, 0.9)), 
+                  url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center/cover;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .page-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(99, 179, 237, 0.1) 0%, rgba(15, 23, 42, 0) 70%);
+      pointer-events: none;
+    }
+    
+    .page-banner h2 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(99, 179, 237, 0.3);
+    }
+    
+    .page-banner p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #cbd5e1;
+    }
+    
+    /* Content Section */
+    .content-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    
+    .community-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .community-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .community-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+      border-color: rgba(99, 179, 237, 0.3);
+    }
+    
+    .community-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .community-card h3 i {
+      background: var(--gradient);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .community-card p {
+      margin-bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.1rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+    }
+    
+    /* Social Section */
+    .social-section {
+      background: rgba(15, 23, 42, 0.9);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    
+    .social-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .social-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .social-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .social-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .social-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+      border-color: rgba(99, 179, 237, 0.3);
+    }
+    
+    .social-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .social-card.twitter .social-icon {
+      background: rgba(29, 161, 242, 0.1);
+      color: #1DA1F2;
+    }
+    
+    .social-card.telegram .social-icon {
+      background: rgba(0, 136, 204, 0.1);
+      color: #0088cc;
+    }
+    
+    .social-card.discord .social-icon {
+      background: rgba(88, 101, 242, 0.1);
+      color: #5865F2;
+    }
+    
+    .social-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .social-card p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    
+    /* Footer Styles */
+    footer {
+      background: rgba(15, 23, 42, 0.9);
+      text-align: center;
+      padding: 2.5rem;
+      border-top: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    footer p {
+      color: #94a3b8;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(99, 179, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .header {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      nav a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      
+      .page-banner {
+        min-height: 300px;
+      }
+      
+      .page-banner h2 {
+        font-size: 2.2rem;
+      }
+      
+      .page-banner p {
+        font-size: 1.1rem;
+      }
+      
+      .community-grid, .social-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .community-card, .social-card {
+        padding: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <!-- Placeholder for logo -->
+      <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="20" fill="none" stroke="#63b3ed" stroke-width="3"/>
+        <path d="M15 25 L25 15 L35 25 L25 35 Z" fill="none" stroke="#63b3ed" stroke-width="2"/>
+        <circle cx="25" cy="25" r="5" fill="#63b3ed"/>
+      </svg>
+      <h1>De-PayM</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="policies.html" class="active">Policies</a></li>
+        <li><a href="community.html" class="active">Community</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-banner community-banner">
+    <h2>Join the De-PayM Community</h2>
+    <p>Participate in forums, vote on proposals, and help shape the future of decentralized payments.</p>
+    <div style="margin-top: 2rem;">
+      <div class="btn pulse floating">
+        <i class="fas fa-users"></i> Become a Community Member
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="community-grid">
+      <div class="community-card">
+        <h3><i class="fas fa-comments"></i> Forums & Discussions</h3>
+        <p>Connect with other users and developers. Ask questions, propose ideas, or troubleshoot together in our vibrant community forums.</p>
+        <p>Our community platform features:</p>
+        <ul style="list-style: none; padding-left: 0; margin: 1.5rem 0;">
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Dedicated channels for developers and users
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Weekly AMA sessions with the core team
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Idea submission portal for new features
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Local language support groups
+          </li>
+        </ul>
+        <a href="#" class="btn"><i class="fas fa-comment-dots"></i> Join Discussions</a>
+      </div>
+      
+      <div class="community-card">
+        <h3><i class="fas fa-vote-yea"></i> Governance & $DPAYM</h3>
+        <p>Lock $DPAYM tokens to gain voting power. Influence fee structures, new chain integrations, and more.</p>
+        <div style="background: rgba(99, 179, 237, 0.1); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 1rem;">Free $DPAYM Mining in App!</h4>
+          <p>Currently, you can earn $DPAYM tokens through our in-app mining program without any investment.</p>
+        </div>
+        <p>Governance features include:</p>
+        <ul style="list-style: none; padding-left: 0; margin: 1.5rem 0;">
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Vote on protocol upgrades and changes
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Propose and vote on treasury spending
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Participate in governance forums
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-check" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Earn rewards for active participation
+          </li>
+        </ul>
+        <a href="#" class="btn"><i class="fas fa-lock"></i> Stake & Vote</a>
+      </div>
+      
+      <div class="community-card">
+        <h3><i class="fas fa-calendar-star"></i> Events & Bounties</h3>
+        <p>Stay tuned for hackathons, airdrops, and bug bounty programs. Earn $DPAYM while contributing to the ecosystem.</p>
+        <div style="margin: 1.5rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 1rem;">Upcoming Events:</h4>
+          <div style="background: rgba(99, 179, 237, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+            <div style="font-weight: bold;">De-PayM Hackathon 2025</div>
+            <div style="font-size: 0.9rem; color: #cbd5e1;">Sept 15-30, 2025 | $50,000 in prizes</div>
+          </div>
+          <div style="background: rgba(99, 179, 237, 0.1); padding: 1rem; border-radius: 10px; margin-bottom: 1rem;">
+            <div style="font-weight: bold;">Community AMA #12</div>
+            <div style="font-size: 0.9rem; color: #cbd5e1;">August 28, 2025 | 3PM UTC</div>
+          </div>
+        </div>
+        <p>Current opportunities:</p>
+        <ul style="list-style: none; padding-left: 0; margin: 1.5rem 0;">
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-bug" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Bug Bounty: Up to $10,000 for critical issues
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-pen-fancy" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Content Creation: Earn $DPAYM for tutorials
+          </li>
+          <li style="padding: 0.5rem 0; position: relative; padding-left: 2rem;">
+            <i class="fas fa-globe" style="position: absolute; left: 0; top: 0.5rem; color: var(--accent);"></i>
+            Translation Program: Localize De-PayM for your region
+          </li>
+        </ul>
+        <a href="#" class="btn"><i class="fas fa-trophy"></i> View Opportunities</a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="social-section">
+    <div class="social-container">
+      <h2>Connect With Us</h2>
+      <div class="social-grid">
+        <div class="social-card twitter">
+          <div class="social-icon">
+            <i class="fab fa-x-twitter"></i>
+          </div>
+          <h3>Twitter / X</h3>
+          <p>Follow us for the latest news, updates, and community announcements. Join the conversation using #DePayM.</p>
+          <a href="https://x.com/De_PayM" class="btn" target="_blank">
+            <i class="fab fa-x-twitter"></i> Follow @De_PayM
+          </a>
+        </div>
+        
+        <div class="social-card telegram">
+          <div class="social-icon">
+            <i class="fab fa-telegram"></i>
+          </div>
+          <h3>Telegram</h3>
+          <p>Join our active Telegram community for real-time discussions, support, and announcements from the team.</p>
+          <a href="https://t.me/DePayMProtocol" class="btn" target="_blank">
+            <i class="fab fa-telegram"></i> Join Telegram
+          </a>
+        </div>
+        
+        <div class="social-card discord">
+          <div class="social-icon">
+            <i class="fab fa-discord"></i>
+          </div>
+          <h3>Discord</h3>
+          <p>Connect with developers, validators, and community members in our Discord server with dedicated channels.</p>
+          <a href="https://discord.gg/QePaBKzM" class="btn" target="_blank">
+            <i class="fab fa-discord"></i> Join Discord
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+  </footer>
+
+  <script>
+    // Simple animation for cards on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.community-card, .social-card').forEach(card => {
+      card.style.opacity = 0;
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(card);
+    });
+    
+    // Add pulse animation to buttons on hover
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mouseenter', function() {
+        this.classList.add('pulse');
+      });
+      
+      btn.addEventListener('mouseleave', function() {
+        this.classList.remove('pulse');
+      });
+    });
+  </script>
+</body>
+</html>
