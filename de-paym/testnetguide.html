@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De-PayM Testnet Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #1a4f79;
+      --secondary: #1a202c;
+      --accent: #63b3ed;
+      --light: #f8f9fa;
+      --text: #e2e8f0;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-reverse: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+    }
+    
+    nav a.active {
+      color: white;
+      background: var(--gradient);
+      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(99, 179, 237, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+    
+    .the-question {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    .futuristic-text {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(99, 179, 237, 0.3);
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #cbd5e1;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: var(--gradient-reverse);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+    }
+    
+    .btn:hover::before {
+      width: 100%;
+    }
+    
+    /* Blockchain Animation */
+    .blockchain-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .chain-node {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+    
+    .chain-line {
+      position: absolute;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      height: 2px;
+    }
+    
+    /* Guide Section */
+    .guide-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 5%;
+      position: relative;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    
+    .step-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+      text-align: center;
+    }
+    
+    .step-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(99, 179, 237, 0.2);
+      border-color: rgba(99, 179, 237, 0.3);
+    }
+    
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .step-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .step-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .step-card p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .step-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--gradient);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    /* Network Cards */
+    .networks-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .network-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .network-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .network-card ul {
+      list-style: none;
+      padding-left: 10px;
+    }
+    
+    .network-card li {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .network-card li::before {
+      content: "•";
+      color: var(--accent);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    
+    .network-card .chain-icon {
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+    
+    /* Referral Section */
+    .referral-section {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 4rem;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    .referral-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+    
+    .referral-box {
+      background: rgba(15, 23, 42, 0.5);
+      border: 2px dashed var(--accent);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .referral-code-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .referral-code {
+      font-family: monospace;
+      font-size: 1.3rem;
+      background: rgba(99, 179, 237, 0.1);
+      padding: 12px 25px;
+      border-radius: 8px;
+      color: white;
+      letter-spacing: 1px;
+      flex-grow: 1;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .copy-btn {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(99, 179, 237, 0.4);
+    }
+    
+    .copy-btn.copied {
+      background: #10b981;
+    }
+    
+    .highlight {
+      color: #ffd700;
+      font-weight: bold;
+    }
+    
+    /* Faucet Cards */
+    .faucet-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.1);
+      margin-bottom: 1.5rem;
+    }
+    
+    .faucet-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .faucet-card ul {
+      list-style: none;
+      padding-left: 10px;
+    }
+    
+    .faucet-card li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .faucet-card li::before {
+      content: "•";
+      color: var(--accent);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    
+    .faucet-link {
+      color: #63b3ed;
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .faucet-link:hover {
+      color: white;
+      text-decoration: underline;
+    }
+    
+    /* Disclaimer */
+    .disclaimer {
+      background: rgba(203, 213, 225, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 2rem;
+      border-radius: 0 8px 8px 0;
+      margin-top: 4rem;
+    }
+    
+    .disclaimer h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    /* Footer */
+    footer {
+      background: rgba(15, 23, 42, 0.9);
+      text-align: center;
+      padding: 2.5rem;
+      border-top: 1px solid rgba(99, 179, 237, 0.1);
+    }
+    
+    footer p {
+      color: #94a3b8;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(99, 179, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .futuristic-text {
+        font-size: 3rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+      
+      .hero {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+      
+      .futuristic-text {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .referral-code-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="logo">
+      <h1>De-PayM</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="https://depaymprotocol.com/de-paym/index.html">Home</a></li>
+        <li><a href="#" class="active">Testnet Guide</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/community.html">Community</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="blockchain-animation" id="blockchainAnimation"></div>
+    <div class="hero-content">
+      <h1 class="the-question">Get Started with</h1>
+      <h2 class="futuristic-text">De-PayM Testnet</h2>
+      <p>Join the future of decentralized payments. Set up your testnet environment and start earning $DPAYM tokens by testing our beta app.</p>
+      <a href="#guide" class="btn pulse floating">
+        <i class="fas fa-rocket"></i> Start Setup
+      </a>
+    </div>
+  </section>
+
+  <!-- Guide Section -->
+  <section id="guide" class="guide-container">
+    <h2 class="section-title">How to Run the Testnet Version</h2>
+    
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">
+          <i class="fas fa-download"></i>
+        </div>
+        <h3>Install MetaMask</h3>
+        <p>Download the MetaMask mobile wallet from the Google Play Store or Apple App Store.</p>
+        <div class="app-badges">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/320px-Google_Play_Store_badge_EN.svg.png" alt="Google Play" width="150">
+        </div>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">
+          <i class="fas fa-wallet"></i>
+        </div>
+        <h3>Setup Wallet</h3>
+        <p>Create a new wallet or import an existing one. Securely store your recovery phrase.</p>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">
+          <i class="fas fa-network-wired"></i>
+        </div>
+        <h3>Add Test Networks</h3>
+        <p>Configure the test networks in MetaMask to interact with De-PayM.</p>
+      </div>
+    </div>
+    
+    <h2 class="section-title" style="margin-top: 4rem;">Testnet Configuration</h2>
+    
+    <div class="networks-container">
+      <div class="network-card">
+        <h3><i class="fab fa-ethereum chain-icon"></i> Base Sepolia</h3>
+        <ul>
+          <li><strong>Network Name:</strong> Base Sepolia</li>
+          <li><strong>RPC URL:</strong> https://sepolia.base.org</li>
+          <li><strong>Chain ID:</strong> 84531</li>
+          <li><strong>Currency Symbol:</strong> ETH</li>
+          <li><strong>Block Explorer:</strong> https://sepolia.basescan.org</li>
+        </ul>
+      </div>
+      
+      <div class="network-card">
+        <h3><i class="fas fa-layer-group chain-icon"></i> Arbitrum Sepolia</h3>
+        <ul>
+          <li><strong>Network Name:</strong> Arbitrum Sepolia</li>
+          <li><strong>RPC URL:</strong> https://sepolia.arbitrum.io/rpc</li>
+          <li><strong>Chain ID:</strong> 421614</li>
+          <li><strong>Currency Symbol:</strong> ETH</li>
+          <li><strong>Block Explorer:</strong> https://sepolia.arbiscan.io</li>
+        </ul>
+      </div>
+      
+      <div class="network-card">
+        <h3><i class="fas fa-bolt chain-icon"></i> Optimism Sepolia</h3>
+        <ul>
+          <li><strong>Network Name:</strong> Optimism Sepolia</li>
+          <li><strong>RPC URL:</strong> https://sepolia.optimism.io</li>
+          <li><strong>Chain ID:</strong> 11155420</li>
+          <li><strong>Currency Symbol:</strong> ETH</li>
+          <li><strong>Block Explorer:</strong> https://sepolia-optimism.etherscan.io</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-icon">
+          <i class="fas fa-faucet"></i>
+        </div>
+        <h3>Get Test Tokens</h3>
+        <p>Obtain Sepolia ETH for gas fees and testnet stablecoins:</p>
+        
+        <div class="faucet-card">
+          <h4><i class="fas fa-tint"></i> Sepolia ETH Faucets</h4>
+          <ul>
+            <li>
+              <a href="https://sepoliafaucet.com" class="faucet-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> SepoliaFaucet.com
+              </a>
+            </li>
+            <li>
+              <a href="https://faucet.quicknode.com/base/sepolia" class="faucet-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> QuickNode Base Sepolia Faucet
+              </a>
+            </li>
+            <li>
+              <a href="https://faucet.triangleplatform.com/arbitrum/sepolia" class="faucet-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Arbitrum Sepolia Faucet
+              </a>
+            </li>
+            <li>
+              <a href="https://optimismfaucet.xyz" class="faucet-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Optimism Sepolia Faucet
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="faucet-card">
+          <h4><i class="fas fa-coins"></i> Test Stablecoins</h4>
+          <ul>
+            <li>
+              <a href="https://faucet.circle.com" class="faucet-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Circle Faucet (USDC & EURC)
+              </a>
+            </li>
+            <li>
+              <a href="https://testnetbridge.com" class="faucet-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> TestnetBridge (Multi-chain)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3>Install De-PayM</h3>
+        <p>Download and install the De-PayM beta APK:</p>
+        <a href="https://drive.google.com/file/d/14bAVB41GA2TXSRdnjLjKdtwXp96iGL1p/view?usp=drivesdk" class="btn" style="margin-top: 1rem;">
+          <i class="fas fa-download"></i> Download APK
+        </a>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">Enable "Install from unknown sources" in your Android settings</p>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <div class="step-icon">
+          <i class="fas fa-plug"></i>
+        </div>
+        <h3>Connect Wallet</h3>
+        <p>Open De-PayM and connect your MetaMask wallet to the test network.</p>
+      </div>
+    </div>
+    
+    <div class="referral-section">
+      <h2><i class="fas fa-gem"></i> Early Community Benefits</h2>
+      <p>De-PayM's first testnet early community members will be able to mine $DPAYM tokens by using the app actively.</p>
+      
+      <div class="referral-box">
+        <p><span class="highlight">THE VERY FIRST 1000 USERS</span> WILL GET A SPECIAL MINING BOOST!</p>
+        <p>Use this referral code during registration:</p>
+        <div class="referral-code-container">
+          <div class="referral-code" id="referralCode">0xFF4AF88F590ac538d2f138D529C6BF5539312d1a</div>
+          <button class="copy-btn" id="copyButton">
+            <i class="fas fa-copy"></i> Copy
+          </button>
+        </div>
+        <p id="copyMessage" style="height: 24px; margin-top: 10px;"></p>
+        <p><em>This exclusive code will be removed soon for the next community group</em></p>
+      </div>
+      
+      <p>After connecting your wallet, you can generate your own referral code to invite friends and earn more $DPAYM tokens.</p>
+    </div>
+    
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-qrcode"></i>
+        </div>
+        <h3>Test Features</h3>
+        <p>Generate QR codes for payments, send stablecoins like USDC and EURC, and interact with the BizChat feature.</p>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-digging"></i>
+        </div>
+        <h3>Mine $DPAYM</h3>
+        <p>Earn tokens by actively using the app. The more transactions you make, the more you earn.</p>
+        <p style="margin-top: 1rem;">Focus on "Pay", "Withdraw" and "Deposit" features to maximize mining.</p>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h3>Provide Feedback</h3>
+        <p>Share your experience and help us improve De-PayM for the mainnet launch.</p>
+      </div>
+    </div>
+    
+    <div class="disclaimer">
+      <h3><i class="fas fa-exclamation-triangle"></i> Important Disclaimer</h3>
+      <p>This is a testnet version for evaluation purposes only. All transactions are simulated and have no real-world value. You will need to pay gas fees in Sepolia ETH for transactions. Do not use real assets. Stay away from bots and automated systems. The app is designed for genuine testing and feedback.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+  </footer>
+
+  <script>
+    // Create blockchain animation
+    const blockchainAnimation = document.getElementById('blockchainAnimation');
+    
+    // Create blockchain nodes and lines
+    for (let i = 0; i < 30; i++) {
+      // Create node
+      const node = document.createElement('div');
+      node.classList.add('chain-node');
+      
+      // Random position
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      node.style.left = `${left}%`;
+      node.style.top = `${top}%`;
+      
+      // Random animation delay
+      node.style.animationDelay = `${Math.random() * 2}s`;
+      
+      blockchainAnimation.appendChild(node);
+    }
+    
+    // Create lines between nodes
+    for (let i = 0; i < 40; i++) {
+      const line = document.createElement('div');
+      line.classList.add('chain-line');
+      
+      // Random positions
+      const startX = Math.random() * 100;
+      const startY = Math.random() * 100;
+      const endX = Math.random() * 100;
+      const endY = Math.random() * 100;
+      
+      // Calculate distance and angle
+      const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+      const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+      
+      line.style.width = `${distance}%`;
+      line.style.left = `${startX}%`;
+      line.style.top = `${startY}%`;
+      line.style.transform = `rotate(${angle}deg)`;
+      line.style.transformOrigin = 'top left';
+      
+      blockchainAnimation.appendChild(line);
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Copy referral code functionality
+    const referralCode = document.getElementById('referralCode');
+    const copyButton = document.getElementById('copyButton');
+    const copyMessage = document.getElementById('copyMessage');
+    
+    copyButton.addEventListener('click', () => {
+      // Create a temporary textarea to copy text
+      const textArea = document.createElement('textarea');
+      textArea.value = referralCode.textContent;
+      document.body.appendChild(textArea);
+      textArea.select();
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          copyMessage.textContent = 'Copied to clipboard!';
+          copyMessage.style.color = '#10b981';
+          copyButton.classList.add('copied');
+          copyButton.innerHTML = '<i class="fas fa-check"></i> Copied';
+          
+          // Reset after 3 seconds
+          setTimeout(() => {
+            copyMessage.textContent = '';
+            copyButton.classList.remove('copied');
+            copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy';
+          }, 3000);
+        }
+      } catch (err) {
+        copyMessage.textContent = 'Failed to copy!';
+        copyMessage.style.color = '#ef4444';
+      }
+      
+      document.body.removeChild(textArea);
+    });
+  </script>
+</body>
+</html>
