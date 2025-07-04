@@ -27,7 +27,7 @@
   </form>
 
   <div class="info">
-    <p ><h4>have the app? </h4><a href="https://your-dapp.com/download">Download De-PayM</a></p>
+    <p ><h4>have the app? </h4><a href="https://drive.google.com/file/d/14bAVB41GA2TXSRdnjLjKdtwXp96iGL1p/view?usp=drivesdk">Download De-PayM</a></p>
   </div>
 
   <script>
@@ -53,7 +53,7 @@
       }
 
       try {
-        const res = await fetch('https://your-api.com/register', {
+        const res = await fetch('https://de-paymdb.onrender.com/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, username, password, referrer })
