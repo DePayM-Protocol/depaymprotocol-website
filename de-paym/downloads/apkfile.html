@@ -1,1 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download De-PayM Beta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Global Styles */
+    :root {
+      --primary: #2b6cb0;
+      --primary-dark: #1a4f79;
+      --secondary: #1a202c;
+      --accent: #63b3ed;
+      --light: #f8f9fa;
+      --text: #e2e8f0;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-reverse: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Blockchain Animation */
+    .blockchain-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .chain-node {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+    
+    .chain-line {
+      position: absolute;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      height: 2px;
+    }
+    
+    /* Download Container */
+    .download-container {
+      background: rgba(30, 41, 59, 0.85);
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 179, 237, 0.15);
+      max-width: 600px;
+      width: 100%;
+      margin: 20px;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+    
+    .download-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--gradient);
+    }
+    
+    .app-icon {
+      text-align: center;
+      margin-bottom: 25px;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .app-icon i {
+      font-size: 5rem;
+      color: var(--accent);
+      background: rgba(99, 179, 237, 0.1);
+      width: 120px;
+      height: 120px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(99, 179, 237, 0.2);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 15px;
+      background: linear-gradient(to right, white, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(99, 179, 237, 0.3);
+    }
+    
+    .subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .feature {
+      background: rgba(99, 179, 237, 0.1);
+      border: 1px solid rgba(99, 179, 237, 0.2);
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .feature i {
+      color: var(--accent);
+    }
+    
+    .download-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--gradient);
+      color: white;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      margin: 0 auto 25px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .download-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: var(--gradient-reverse);
+      transition: var(--transition);
+      z-index: -1;
+    }
+    
+    .download-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+    }
+    
+    .download-button:hover::before {
+      width: 100%;
+    }
+    
+    .note {
+      background: rgba(203, 213, 225, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .note i {
+      color: var(--accent);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      padding: 20px;
+      max-width: 600px;
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(99, 179, 237, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .download-container {
+        padding: 40px 25px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      .feature {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+      }
+      
+      .download-button {
+        padding: 14px 25px;
+        font-size: 1rem;
+      }
+      
+      .stat-value {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Blockchain Animation -->
+  <div class="blockchain-animation" id="blockchainAnimation"></div>
+  
+  <!-- Download Container -->
+  <div class="download-container">
+    <div class="app-icon">
+      <i class="fas fa-wallet"></i>
+    </div>
+    
+    <h1>Download De-PayM Beta</h1>
+    <div class="subtitle">Be among the first to experience the future of payments</div>
+    
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-qrcode"></i>
+        <span>QR Payments</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-coins"></i>
+        <span>Stablecoin Transfers</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-digging"></i>
+        <span>Mine $DPAYM</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-comments"></i>
+        <span>BizChat</span>
+      </div>
+    </div>
+    
+    <p style="text-align: center; margin-bottom: 30px; color: #cbd5e1; line-height: 1.7;">
+      Experience QR payments, stablecoin transfers, mining $DPAYM, and BizChat — all in testnet as you earn $DPAYM tokens.
+    </p>
+    
+    <a href="/de-paym/downloads/de-paym-beta.apk" class="download-button pulse">
+      <i class="fas fa-download"></i>
+      Download Beta APK
+    </a>
+    
+    <div class="note">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div>This is a beta version. Make sure to enable installs from unknown sources in your phone's settings.</div>
+    </div>
+    
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-value">0% Fees</div>
+        <div class="stat-label">During Beta</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">$DPAYM</div>
+        <div class="stat-label">Free Mining</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">Testnet</div>
+        <div class="stat-label">Safe Testing</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+  </div>
 
+  <script>
+    // Create blockchain animation
+    const blockchainAnimation = document.getElementById('blockchainAnimation');
+    
+    // Create blockchain nodes and lines
+    for (let i = 0; i < 30; i++) {
+      // Create node
+      const node = document.createElement('div');
+      node.classList.add('chain-node');
+      
+      // Random position
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      node.style.left = `${left}%`;
+      node.style.top = `${top}%`;
+      
+      // Random animation delay
+      node.style.animationDelay = `${Math.random() * 2}s`;
+      
+      blockchainAnimation.appendChild(node);
+    }
+    
+    // Create lines between nodes
+    for (let i = 0; i < 40; i++) {
+      const line = document.createElement('div');
+      line.classList.add('chain-line');
+      
+      // Random positions
+      const startX = Math.random() * 100;
+      const startY = Math.random() * 100;
+      const endX = Math.random() * 100;
+      const endY = Math.random() * 100;
+      
+      // Calculate distance and angle
+      const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+      const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+      
+      line.style.width = `${distance}%`;
+      line.style.left = `${startX}%`;
+      line.style.top = `${startY}%`;
+      line.style.transform = `rotate(${angle}deg)`;
+      line.style.transformOrigin = 'top left';
+      
+      blockchainAnimation.appendChild(line);
+    }
+  </script>
+</body>
+</html>
