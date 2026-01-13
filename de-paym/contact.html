@@ -40,94 +40,98 @@
       overflow-x: hidden;
     }
     
-    /* Header Styles */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 5%;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow);
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .logo-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--gradient);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-    
-    .logo-text {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(to right, white, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 1.5rem;
-    }
-    
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
-      transition: var(--transition);
-      position: relative;
-    }
-    
-    nav a:hover {
-      color: var(--accent);
-      background: rgba(99, 179, 237, 0.1);
-    }
-    
-    nav a.active {
-      color: white;
-      background: var(--gradient);
-      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
-    }
-    
-    nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-    
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--accent);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
+    /* Header Styles - Futuristic Blockchain Style */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo img {
+  height: 50px;
+  filter: drop-shadow(0 0 5px rgba(99, 179, 237, 0.5));
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2b6cb0 0%, #63b3ed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+nav a:hover {
+  color: #63b3ed;
+  background: rgba(99, 179, 237, 0.1);
+}
+
+nav a.active {
+  color: white;
+  background: linear-gradient(135deg, #2b6cb0 0%, #63b3ed 100%);
+  box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #63b3ed;
+  border-radius: 50%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #63b3ed;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  nav ul {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
     
     /* Banner Styles */
     .page-banner {
@@ -562,21 +566,28 @@
 </head>
 <body>
   <header class="header">
-    <div class="logo">
-    <img src="../assets/images/depaym-logo.png" alt="DePayM Logo" class="logo-img" style="width: 100px; height: auto;/>
-    <h1>De-PayM</h1>
+  <div class="logo" style="display:flex; align-items:center; gap:1rem;">
+    <img
+      src="../assets/images/DePayMNowLogo.png"
+      alt="DePayM Logo"
+      class="logo-img"
+      style="width:100px; height:auto;"
+    />
+    <div class="logo-text">De-PayM</div>
   </div>
-    <nav>
-      <ul>
-        <li><a href="https://depaymprotocol.com/de-paym/index.html">Home</a></li>
-        <li><a href="https://depaymprotocol.com/de-paym/about.html">About</a></li>
-        <li><a href="https://depaymprotocol.com/de-paym/policies.html">Policies</a></li>
-        <li><a href="https://depaymprotocol.com/de-paym/community.html">Community</a></li>
-        <li><a href="https://depaymprotocol.com/de-paym/security.html">Security</a></li>
-        <li><a href="https://depaymprotocol.com/de-paym/contact.html" class="active">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+
+  <nav>
+    <ul>
+      <li><a href="https://depaymprotocol.com/de-paym/index.html">Home</a></li>
+      <li><a href="https://depaymprotocol.com/de-paym/about.html">About</a></li>
+      <li><a href="https://depaymprotocol.com/de-paym/policies.html">Policies</a></li>
+      <li><a href="https://depaymprotocol.com/de-paym/community.html">Community</a></li>
+      <li><a href="https://depaymprotocol.com/de-paym/security.html">Security</a></li>
+      <li><a href="https://depaymprotocol.com/de-paym/contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
 
   <section class="page-banner contact-banner">
     <h2>Get in Touch</h2>
@@ -694,7 +705,7 @@
       <div class="map-placeholder">
         <i class="fas fa-map-marked-alt"></i>
         <h3>Our Global Headquarters</h3>
-        <p>Blockchain Innovation Hub, Web3 Avenue, Crypto Valley, Switzerland</p>
+        <p>DePayM Protocol, Busia, Kenya</p>
         <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Interactive map would be displayed here</p>
       </div>
     </div>
@@ -726,7 +737,7 @@
   </section>
 
   <footer>
-    <p>© 2025 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
+    <p>© 2026 DePayMProtocol. All rights reserved. | Building a decentralized future for financial inclusion.</p>
   </footer>
 
   <script>

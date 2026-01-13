@@ -40,77 +40,98 @@
       overflow-x: hidden;
     }
     
-    /* Header Styles */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 5%;
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .logo img {
-      height: 50px;
-      filter: drop-shadow(0 0 5px rgba(99, 179, 237, 0.5));
-    }
-    
-    .logo h1 {
-      font-size: 1.8rem;
-      background: linear-gradient(to right, var(--accent), #4fd1c5);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-    }
-    
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-    
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
-      transition: var(--transition);
-      position: relative;
-    }
-    
-    nav a:hover {
-      color: var(--accent);
-      background: rgba(99, 179, 237, 0.1);
-    }
-    
-    nav a.active {
-      color: white;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
-    }
-    
-    nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
+    /* Header Styles - Futuristic Blockchain Style */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo img {
+  height: 50px;
+  filter: drop-shadow(0 0 5px rgba(99, 179, 237, 0.5));
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2b6cb0 0%, #63b3ed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+nav a:hover {
+  color: #63b3ed;
+  background: rgba(99, 179, 237, 0.1);
+}
+
+nav a.active {
+  color: white;
+  background: linear-gradient(135deg, #2b6cb0 0%, #63b3ed 100%);
+  box-shadow: 0 0 15px rgba(99, 179, 237, 0.3);
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #63b3ed;
+  border-radius: 50%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #63b3ed;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  nav ul {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
     
     /* Banner Styles */
     .page-banner {
@@ -382,7 +403,12 @@
   <header class="header">
     <div class="logo">
       <!-- Placeholder for logo -->
-      <img src="../assets/images/depaym-logo.png" alt="DePayM Logo" class="logo-img" style="width: 100px; height: auto;/>
+      <img
+      src="../assets/images/DePayMNowLogo.png"
+      alt="DePayM Logo"
+      class="logo-img"
+      style="width:100px; height:auto;"
+    />
       <h1>De-PayM</h1>
     </div>
     <nav>
