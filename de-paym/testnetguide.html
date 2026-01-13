@@ -254,12 +254,15 @@
           <li>Connected or created EVM wallet (seed backed up)</li>
           <li>Clicked Start Mining</li>
           <li>(Optional) Entered referral code to boost mining</li>
-        </ul>
+          </ul>
+          
+          <p class="footer">Tip: Keep the app updated and only download official updates to keep your funds and account safe.</p>
+          
+          <div class="actions" aria-hidden="false">
+            <button id="continueBtn" class="btn" data-url="https://depaymprotocol.com/de-paym/registration.html">
+              Register
+            </button>
 
-        <p class="footer">Tip: Keep the app updated and only download official updates to keep your funds and account safe.</p>
-
-        <div class="actions" aria-hidden="false">
-          <button href="https://depaymprotocol.com/de-paym/registration.html" id="continueBtn" class="btn" title="Continue to app">Register</button>
         </div>
       </article>
 
@@ -311,15 +314,14 @@
       }
 
       // Mark onboarding complete and redirect (one-time)
-      continueBtn.addEventListener("click", function(){
+      continueBtn.addEventListener("click", function () {
         try {
           localStorage.setItem("hasOpenedDePayM", "true");
-        } catch(e) {
-          console.warn("failed to set localStorage", e);
-        }
-        // navigate; replace so history doesn't keep onboarding page
-        window.location.replace(redirectUrl);
+        } catch (e) { }
+
+        window.location.href = continueBtn.dataset.url;
       });
+
 
       // Skip opens settings (example) — change as needed
       skipBtn.addEventListener("click", function(e){
