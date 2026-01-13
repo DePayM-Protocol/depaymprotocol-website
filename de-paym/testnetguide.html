@@ -17,9 +17,7 @@
       --card-bg: rgba(255, 255, 255, 0.03);
       --muted: rgba(230, 247, 251, 0.9);
       --accent: #00e6ff;
-      /* cyan neon */
       --accent-2: #fff6a3;
-      /* yellow highlight */
       --title: #9ef0ff;
       --danger: #ffd8a8;
       --glass-border: rgba(255, 255, 255, 0.06);
@@ -27,7 +25,11 @@
       --pad: 20px;
       --radius: 14px;
       --shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+      /* header sizes - change once and every page will match */
+      --header-height: 72px;
+      /* used for sticky header spacing */
+      --header-padding: 16px;
     }
 
     html,
@@ -38,113 +40,152 @@
     body {
       margin: 0;
       min-height: 100%;
-      background: radial-gradient(circle at 10% 10%, rgba(0, 230, 255, 0.04) 0%, transparent 20%),
-        linear-gradient(180deg, #050505 0%, #071019 60%);
+      background: radial-gradient(circle at 10% 10%, rgba(0, 230, 255, 0.04) 0%, transparent 20%), linear-gradient(180deg, #050505 0%, #071019 60%);
       color: var(--muted);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    .wrap {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 80px auto 40px;
-      /* top margin for spacing below header */
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-
+    /* HEADER (updated) */
     .header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 5%;
       position: sticky;
       top: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
+      z-index: 2000;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 var(--header-padding);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.75));
+      backdrop-filter: blur(8px);
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
     }
 
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand .logo {
+      height: 48px;
+      /* much smaller for header */
+      width: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .brand .logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    .brand .title {
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    nav {
+      position: relative;
+    }
+
     nav ul {
-      list-style: none;
       display: flex;
       gap: 18px;
+      align-items: center;
+      list-style: none;
       margin: 0;
       padding: 0;
+      z-index: 2100;
+      /* make sure it sits above content */
+    }
+
+    nav li {
+      margin: 0;
     }
 
     nav a {
       color: var(--muted);
       text-decoration: none;
       font-weight: 500;
-      padding: 6px 12px;
-      border-radius: 20px;
-      transition: 0.3s;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: all .18s ease;
+      display: inline-block;
     }
 
     nav a:hover {
+      background: rgba(0, 230, 255, 0.06);
       color: #fff;
-      background: rgba(0, 230, 255, 0.08);
+    }
+
+    nav a.active {
+      background: linear-gradient(90deg, var(--accent), #63b3ed);
+      color: #001;
+      box-shadow: 0 8px 24px rgba(0, 230, 255, 0.08);
     }
 
     .mobile-menu-btn {
       display: none;
-      font-size: 1.5rem;
       background: none;
-      border: none;
+      border: 0;
       color: var(--accent);
+      font-size: 22px;
       cursor: pointer;
+      padding: 6px;
     }
 
-    @media(max-width:900px) {
+    /* small-screen behavior */
+    @media (max-width:900px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      /* hide desktop menu into dropdown */
       nav ul {
+        position: absolute;
+        top: calc(var(--header-height));
+        left: 0;
+        right: 0;
         display: none;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        padding: 12px 0;
+        gap: 6px;
+        padding: 12px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.98));
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
       }
 
       nav ul.show {
         display: flex;
       }
 
-      .mobile-menu-btn {
-        display: block;
+      nav a {
+        padding: 12px 16px;
       }
     }
 
-
-    /* Logo */
-    .logo {
-      width: 160px;
-      height: 160px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      box-shadow: 0 6px 30px rgba(0, 230, 255, 0.06);
-      background: linear-gradient(180deg, rgba(0, 230, 255, 0.02), rgba(255, 255, 255, 0.01));
-    }
-
-    .logo img {
+    /* PAGE WRAP - content pushed below header */
+    .wrap {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
+      max-width: var(--max-width);
+      margin: calc(var(--header-height) + 28px) auto 40px;
+      /* important: pushes body below header */
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 0 18px;
+      box-sizing: border-box;
     }
 
-    /* Card */
+    /* rest of your original styles (kept) */
     .card {
       width: 100%;
       background: var(--card-bg);
@@ -198,7 +239,6 @@
       font-size: 13px;
     }
 
-    /* Continue button */
     .actions {
       display: flex;
       gap: 12px;
@@ -222,14 +262,6 @@
       box-shadow: 0 10px 30px rgba(0, 230, 255, 0.12);
     }
 
-    .btn.secondary {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: none;
-    }
-
-    /* Responsive layout for long copy: two-column optional */
     .grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -247,67 +279,60 @@
       }
     }
 
-    /* Sidebar quick-check */
-    .sidebar {
-      position: sticky;
-      top: 24px;
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 12px;
-      padding: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.03);
+    /* keep small logo in content if you want (optional) */
+    .content-logo {
+      width: 160px;
+      height: 160px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 30px rgba(0, 230, 255, 0.06);
+      background: linear-gradient(180deg, rgba(0, 230, 255, 0.02), rgba(255, 255, 255, 0.01));
     }
 
-    .checklist {
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
-    .checklist li {
-      margin-bottom: 8px;
-    }
-
-    /* subtle headings inside card */
-    .small-title {
-      color: #dffbff;
-      font-weight: 700;
-      margin-top: 10px;
-      margin-bottom: 6px;
-    }
-
-    /* anchor link */
-    a.anchor {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
+    .content-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   </style>
 </head>
 
 <body>
 
-  <header class="header">
-    <div class="logo">
-      <img src="../assets/images/DePayMNowLogo.png" alt="De-PayM logo" />
-      <span style="color:#fff;font-weight:700;">De-PayM</span>
+  <!-- **Updated header** -->
+  <header class="header" role="banner">
+    <div class="brand" aria-label="De-PayM">
+      <div class="logo" aria-hidden="true">
+        <img src="../assets/images/DePayMNowLogo.png" alt="De-PayM logo" />
+      </div>
+      <div class="title">De-PayM</div>
     </div>
-    <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
-    <nav>
+
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="navMenu"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+    <nav role="navigation" aria-label="Main navigation">
       <ul id="navMenu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Community</a></li>
-        <li><a href="#" class="active">Guide</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/">Home</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/registration.html" target="_blank"
+            rel="noopener noreferrer">Join</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/about.html">About</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/policies.html">Policies</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/community.html">Community</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/testnetguide.html" class="active">Guide</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/registration.html">Register</a></li>
+        <li><a href="https://depaymprotocol.com/de-paym/contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
+  <!-- page content pushed below header -->
   <div class="wrap" role="main" aria-labelledby="pageTitle">
-
     <div class="grid" style="width:100%;">
-      <!-- Main content -->
       <article class="card" aria-label="How to use De-PayM">
         <h1 id="pageTitle" class="title">How to use the De-PayM app</h1>
 
@@ -391,86 +416,35 @@
           <button id="continueBtn" class="btn" data-url="https://depaymprotocol.com/de-paym/registration.html">
             Register
           </button>
-
         </div>
       </article>
-
     </div>
   </div>
 
   <script>
     (function () {
-      const redirectUrl = "/"; // change to your app's login/home route
-      const continueBtn = document.getElementById("continueBtn");
-      const skipBtn = document.getElementById("skipBtn");
-      const copyBtn = document.getElementById("copyBtn");
-      const refCodeEl = document.getElementById("refCode");
-      const copyMsg = document.getElementById("copyMsg");
-
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const navMenu = document.getElementById('navMenu');
-      mobileMenuBtn.addEventListener('click', () => navMenu.classList.toggle('show'));
 
+      // mobile toggle + accessibility state
+      mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('show');
+        mobileMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
 
-      // If you want this page to auto-redirect when onboarding already seen:
-      try {
-        const seen = localStorage.getItem("hasOpenedDePayM");
-        if (seen === "true") {
-          // user already saw onboarding — optionally skip this page automatically
-          // window.location.replace(redirectUrl);
-          // comment the line above if you prefer manual access
+      // close mobile menu on resize to desktop width
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+          navMenu.classList.remove('show');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
         }
-      } catch (e) {
-        console.warn("localStorage not available", e);
-      }
+      });
 
-      // Mark onboarding complete and redirect (one-time)
-      continueBtn.addEventListener("click", function () {
-        try {
-          localStorage.setItem("hasOpenedDePayM", "true");
-        } catch (e) { }
-
+      // sample continue button behavior (unchanged)
+      const continueBtn = document.getElementById('continueBtn');
+      continueBtn.addEventListener('click', () => {
+        try { localStorage.setItem('hasOpenedDePayM', 'true'); } catch (e) { }
         window.location.href = continueBtn.dataset.url;
-      });
-
-
-      // Skip opens settings (example) — change as needed
-      skipBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        alert("Open app settings or login page. Replace this with your desired action.");
-      });
-
-      // Copy referral code
-      copyBtn.addEventListener("click", function () {
-        const text = refCodeEl.textContent.trim();
-        if (!navigator.clipboard) {
-          // fallback
-          const t = document.createElement("textarea");
-          t.value = text;
-          document.body.appendChild(t);
-          t.select();
-          try {
-            document.execCommand("copy");
-            copyMsg.textContent = "Copied to clipboard!";
-            copyMsg.style.color = "#10b981";
-          } catch (err) {
-            copyMsg.textContent = "Copy failed";
-            copyMsg.style.color = "#ef4444";
-          }
-          document.body.removeChild(t);
-          setTimeout(() => copyMsg.textContent = "", 3000);
-          return;
-        }
-
-        navigator.clipboard.writeText(text).then(function () {
-          copyMsg.textContent = "Copied to clipboard!";
-          copyMsg.style.color = "#10b981";
-          setTimeout(() => copyMsg.textContent = "", 3000);
-        }).catch(function () {
-          copyMsg.textContent = "Copy failed";
-          copyMsg.style.color = "#ef4444";
-          setTimeout(() => copyMsg.textContent = "", 3000);
-        });
       });
     })();
   </script>
